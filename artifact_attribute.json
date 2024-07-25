@@ -1,0 +1,19 @@
+{
+  "1" :
+    {
+      "1" : "Water",
+      "2" : "Fire",
+      "3" : "Wind",
+      "4" : "Light",
+      "5" : "Dark",
+      "98" : "Intangible"
+    },
+  "2" :
+    {
+      "1" : "Attack",
+      "2" : "Defense",
+      "3" : "HP",
+      "4" : "Support",
+      "98" : "Intangible"
+    }
+}
