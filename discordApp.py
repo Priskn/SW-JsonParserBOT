@@ -2,10 +2,12 @@ import csv
 import io
 import os
 
+
 import discord
 import json
 
 import fill_excel
+
 import json_to_csv_artifacts
 
 intents = discord.Intents.default()
@@ -34,6 +36,7 @@ async def on_message(message):
     if 'Nephthys' in message.content:
         await message.add_reaction('🤮')
 
+
     if message.content.startswith('$upload'):
         if len(message.attachments) > 0:
             attachment = message.attachments[0]
@@ -51,6 +54,7 @@ async def on_message(message):
 
                 # await message.channel.send(file=discord.File(csv_filename))
                 await message.reply(file=discord.File(csv_filename))
+
             else:
                 await message.channel.send("Le fichier doit être au format JSON.")
         else:
@@ -100,3 +104,4 @@ async def on_message(message):
 
 
 client.run(os.getenv("DISCORD_TOKEN"))
+
