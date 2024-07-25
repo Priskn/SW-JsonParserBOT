@@ -74,6 +74,7 @@ async def on_message(message):
 
                 with open(attachment.filename.split('.')[0] + '-temp.json', 'w', encoding='utf8') as temp_json_f:
                     json.dump(json_data, temp_json_f)
+
                 csv_filename = attachment.filename.split('.')[0] + ".csv"
                 with open(attachment.filename.split('.')[0] + '-temp.json', 'r', encoding='utf8') as temp_json_f:
                     # await rename_player(temp_json_f, message)
