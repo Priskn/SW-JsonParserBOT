@@ -15,7 +15,6 @@ else:
     # Charger les données JSON en Python
     json_data = result.stdout
     data_xzandro = json.loads(json_data)
-    print(data_xzandro)
 
 
 def parse_json(json_f, destination_file, guild_name):
