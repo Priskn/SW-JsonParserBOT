@@ -20,6 +20,12 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.content.startswith('Nephtys pue'):
+        await message.reply("tro dakor")
+
+    if 'Nepthys' in message.content:
+        await message.add_reaction('🤮')
+
     if message.content.startswith('$upload'):
         if len(message.attachments) > 0:
             attachment = message.attachments[0]
