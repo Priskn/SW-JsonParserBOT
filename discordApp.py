@@ -91,4 +91,4 @@ async def on_message(message):
 
 
 
-client.run("token")
+client.run(os.getenv("DISCORD_TOKEN"))
