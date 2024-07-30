@@ -3,11 +3,10 @@ import json
 
 def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_stat, guild_name):
     with open('guildes_arte_values.json', encoding='utf8') as guild_values_f:
-        guild_values =  json.load(guild_values_f)
+        guild_values = json.load(guild_values_f)
         # Damage dealt on water
         if sub_type == "301":
             if value >= guild_values[str(sub_type)][guild_name]:
-                print("water ok" + attribute +" : "+ main_stat)
                 if attribute == "1":
                     if main_stat == "101":
                         sheet['H4'] = int(sheet['H4'].value) + 1
@@ -217,7 +216,6 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
     # Damage received from water
         elif sub_type == "306":
             if value >= guild_values[str(sub_type)][guild_name]:
-                print("water ok" + attribute + " : " + main_stat)
                 if attribute == "1":
                     if main_stat == "100":
                         sheet['U4'] = int(sheet['U4'].value) + 1
@@ -455,7 +453,6 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
 
         elif sub_type == "225":
             if value >= guild_values[str(sub_type)][guild_name]:
-                print("hello : " + attribute + " : " + unit_type)
                 if main_stat == "101":
                     if attribute == "1":
                         sheet['H30'] = sheet['H30'].value + 1
@@ -476,7 +473,6 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
 
         elif sub_type == "226":
             if value >= guild_values[str(sub_type)][guild_name]:
-                print("hello : " + attribute + " : " + unit_type)
                 if main_stat == "101":
                     if attribute == "1":
                         sheet['H31'] = sheet['H31'].value + 1
