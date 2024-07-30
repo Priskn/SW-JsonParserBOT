@@ -14,11 +14,11 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 
-async def rename_player(json_f, message):
-    if message.author.mention != discord.Permissions.administrator:
-        player_data = json.load(json_f)
-        player_name = player_data["wizard_info"]["wizard_name"]
-        await message.author.edit(nick=player_name)
+# async def rename_player(json_f, message):
+#     if message.author.mention != discord.Permissions.administrator:
+#         player_data = json.load(json_f)
+#         player_name = player_data["wizard_info"]["wizard_name"]
+#         await message.author.edit(nick=player_name)
 
 
 @client.event
