@@ -95,7 +95,7 @@ async def on_message(message):
             await message.reply("Aucun fichier attaché. Utilisez la commande `$fill_doc` avec un fichier JSON.")
 
     if message.content.startswith('$help'):
-        await message.reply("- $fill_doc : Remplit le document Excell qui vous indiquera les contenus à farmer. Nécessite un fichier json en pièce jointe")
+        await message.reply("- $fill_doc : Remplit le document Excel qui vous indiquera les contenus à farmer. Nécessite un fichier json en pièce jointe")
 
 
-client.run("")
+client.run(os.getenv("DISCORD_TOKEN"))
