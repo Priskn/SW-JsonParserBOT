@@ -19,7 +19,8 @@ else:
 
 def parse_json(json_f, destination_file, guild_name):
     with open('artifact_attribute.json', encoding='utf8') as artifact_attributes_f:
-        data = json.load(json_f)
+        json_ff = json_f
+        data = json.load(json_ff)
 
         source_file = "jsonanalysed.xlsx"
 
@@ -86,7 +87,14 @@ def parse_json(json_f, destination_file, guild_name):
         max_despair_6 = 0
 
         for monster in data["unit_list"]:
-            for mon_rune in monster["runes"]:
+
+            if isinstance(monster["runes"], dict):
+                runes = list(monster["runes"].values())
+            else:
+                runes = monster["runes"]
+
+            for mon_rune in runes:
+
                 if mon_rune["set_id"] == 13:
                     effi = effi_rune.calcul_effi_rune(mon_rune)
                     effi_purple = effi_rune.calcul_effi_max(mon_rune)

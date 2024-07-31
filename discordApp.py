@@ -74,7 +74,9 @@ async def on_message(message):
                 else:
                     guild_name = guild_info['name']
                 print(guild_name)
-                if guild_name not in ["Rose Tattoo", "Rose Tattwo", "Little Rose", "Baby Rose"]:
+
+                list_guildes = ["Rose Tattoo", "Rose Tattwo", "Little Rose", "Baby Rose"]
+                if guild_name not in list_guildes:
                     await message.reply("Cet outil est réservé aux guildes du groupe Rose Tattoo (hors Lazy)")
                     return
 
@@ -83,6 +85,7 @@ async def on_message(message):
                 destination_file = attachment.filename.split('.')[0] + ".xlsx"
                 with open(attachment.filename.split('.')[0] + '-temp.json', 'r', encoding='utf8') as temp_json_f:
                     # await rename_player(temp_json_f, message)
+                    # for guild in list_guildes:
                     fill_excel.parse_json(temp_json_f, destination_file, guild_name)
 
                 # await message.channel.send(file=discord.File(csv_filename))
@@ -102,6 +105,6 @@ async def on_message(message):
         await message.reply("- $fill_doc : Remplit le document Excel qui vous indiquera les contenus à farmer. Nécessite un fichier json en pièce jointe")
 
 
-
+print(os.getenv("DISCORD_TOKEN"))
 client.run(os.getenv("DISCORD_TOKEN"))
 
