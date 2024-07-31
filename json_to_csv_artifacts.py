@@ -26,16 +26,6 @@ def parse_json(json_f, csv_filename):
             # print(data["artifact"])
             # print(data["guild"]["guild_info"]["name"])
 
-            source_file = "jsonanalysed.xlsx"
-            destination_file = "test_to_remove.xlsx"
-
-            shutil.copyfile(source_file, destination_file)
-            workbook = openpyxl.load_workbook(destination_file)
-            sheet = workbook.active
-
-            print(sheet["A3"].value)
-
-
             attribs = json.load(artifact_attributes_f)
             writer = csv.writer(csv_f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             # print(data['artifacts'])
@@ -55,7 +45,6 @@ def parse_json(json_f, csv_filename):
                     for sub in arti["sec_effects"]:
                         row.append(data_xzandro['artifact']["effectTypes"]["sub"][str(sub[0])])
                         row.append(str(sub[1]))
-                        #check_excel(sub[0], sub[1], sheet, str(arti['type']))
                     writer.writerow(row)
             for monster in data["unit_list"]:
                 for mon_arti in monster["artifacts"]:

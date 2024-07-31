@@ -2,10 +2,12 @@ import csv
 import io
 import os
 
+
 import discord
 import json
 
 import fill_excel
+
 import json_to_csv_artifacts
 
 intents = discord.Intents.default()
@@ -14,11 +16,11 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 
-async def rename_player(json_f, message):
-    if message.author.mention != discord.Permissions.administrator:
-        player_data = json.load(json_f)
-        player_name = player_data["wizard_info"]["wizard_name"]
-        await message.author.edit(nick=player_name)
+# async def rename_player(json_f, message):
+#     if message.author.mention != discord.Permissions.administrator:
+#         player_data = json.load(json_f)
+#         player_name = player_data["wizard_info"]["wizard_name"]
+#         await message.author.edit(nick=player_name)
 
 
 @client.event
@@ -34,6 +36,7 @@ async def on_message(message):
     if 'Nephthys' in message.content:
         await message.add_reaction('🤮')
 
+
     if message.content.startswith('$upload'):
         if len(message.attachments) > 0:
             attachment = message.attachments[0]
@@ -46,11 +49,12 @@ async def on_message(message):
                     json.dump(json_data, temp_json_f)
                 csv_filename = attachment.filename.split('.')[0] + ".csv"
                 with open(attachment.filename.split('.')[0] + '-temp.json', 'r', encoding='utf8') as temp_json_f:
-                    await rename_player(temp_json_f, message)
+                    # await rename_player(temp_json_f, message)
                     json_to_csv_artifacts.parse_json(temp_json_f, csv_filename)
 
                 # await message.channel.send(file=discord.File(csv_filename))
                 await message.reply(file=discord.File(csv_filename))
+
             else:
                 await message.channel.send("Le fichier doit être au format JSON.")
         else:
@@ -78,7 +82,7 @@ async def on_message(message):
                     json.dump(json_data, temp_json_f)
                 destination_file = attachment.filename.split('.')[0] + ".xlsx"
                 with open(attachment.filename.split('.')[0] + '-temp.json', 'r', encoding='utf8') as temp_json_f:
-                    await rename_player(temp_json_f, message)
+                    # await rename_player(temp_json_f, message)
                     fill_excel.parse_json(temp_json_f, destination_file, guild_name)
 
                 # await message.channel.send(file=discord.File(csv_filename))
@@ -98,4 +102,6 @@ async def on_message(message):
         await message.reply("- $fill_doc : Remplit le document Excel qui vous indiquera les contenus à farmer. Nécessite un fichier json en pièce jointe")
 
 
+
 client.run(os.getenv("DISCORD_TOKEN"))
+
