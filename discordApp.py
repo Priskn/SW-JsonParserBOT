@@ -69,15 +69,24 @@ async def on_message(message):
                 json_data = json.loads(file_content.decode('utf-8'))
 
                 guild_info = json_data['guild']['guild_info']
+
                 if guild_info is None:
                     guild_name = "None"
                 else:
                     guild_name = guild_info['name']
                 print(guild_name)
-
+                args = message.content.split(' ')[1:]
+                if args:
+                    guild_to_check = args[0] + " " + args[1]
+                else:
+                    guild_to_check = guild_name
                 list_guildes = ["Rose Tattoo", "Rose Tattwo", "Little Rose", "Baby Rose"]
                 if guild_name not in list_guildes:
                     await message.reply("Cet outil est réservé aux guildes du groupe Rose Tattoo (hors Lazy)")
+                    return
+
+                if guild_to_check not in list_guildes:
+                    await message.reply("La guilde que vous avez entrée ne fait pas partie du groupe Rose Tattoo")
                     return
 
                 with open(attachment.filename.split('.')[0] + '-temp.json', 'w', encoding='utf8') as temp_json_f:
@@ -86,11 +95,11 @@ async def on_message(message):
                 with open(attachment.filename.split('.')[0] + '-temp.json', 'r', encoding='utf8') as temp_json_f:
                     # await rename_player(temp_json_f, message)
                     # for guild in list_guildes:
-                    fill_excel.parse_json(temp_json_f, destination_file, guild_name)
+                    fill_excel.parse_json(temp_json_f, destination_file, guild_to_check)
 
                 # await message.channel.send(file=discord.File(csv_filename))
                 await message.reply(
-                    "Vous pourrez retrouver le contenu rempli dans l'onglet de votre guilde (" + guild_name + ")",
+                    "Vous pourrez retrouver le contenu rempli dans l'onglet de la bonne guilde (" + guild_to_check + ")",
                     file=discord.File(destination_file))
 
                 os.remove(destination_file)
