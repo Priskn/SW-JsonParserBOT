@@ -11,7 +11,7 @@ def list_runes(json_f, csv_filename, effi_asked):
             data_xzandro = json.load(data_xzandro_f)
             writer = csv.writer(csv_f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             writer.writerow(
-                ['Rune ID', 'Set', 'Slot', 'Monster Equipped', 'Efficiency', 'Max Efficiency', 'Main Stat', 'Innate',
+                ['Rune ID', 'Set', 'Slot', 'Monster Equipped', 'Efficiency', 'Max Efficiency', 'Gains', 'Main Stat', 'Innate',
                  'Innate Value', 'first_sub', 'first_sub_value', 'second_sub', 'second_sub_value', 'third_sub',
                  'third_sub_value', 'fourth_sub', 'fourth_sub_value'])
 
@@ -38,6 +38,7 @@ def get_row_effi(rune, data_xzandro, monster):
     row.append("Inventory" if monster == "None" else data_xzandro["monster"]["names"][str(monster)])
     row.append(effi_rune.calcul_effi_rune(rune))
     row.append(effi_rune.calcul_effi_max(rune))
+    row.append(effi_rune.calcul_effi_max(rune) - effi_rune.calcul_effi_rune(rune))
     row.append(data_xzandro["rune"]["effectTypes"][str(rune["pri_eff"][0])])
     row.append(data_xzandro["rune"]["effectTypes"][str(rune["prefix_eff"][0])])
     row.append(rune["prefix_eff"][1])
