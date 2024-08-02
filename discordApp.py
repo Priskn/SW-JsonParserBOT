@@ -9,6 +9,7 @@ import json
 import fill_excel
 
 import json_to_csv_artifacts
+import list_runes_over_effi
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -112,6 +113,40 @@ async def on_message(message):
 
     if message.content.startswith('$help'):
         await message.reply("- $fill_doc : Remplit le document Excel qui vous indiquera les contenus à farmer. Nécessite un fichier json en pièce jointe")
+
+    if message.content.startswith('$efficheck'):
+        if len(message.attachments) > 0:
+            attachment = message.attachments[0]
+            if attachment.filename.endswith('.json'):
+                # Télécharger le fichier
+                file_content = await attachment.read()
+                json_data = json.loads(file_content.decode('utf-8'))
+
+                args = message.content.split(' ')[1:]
+
+                if args:
+                    if args[0].isdigit():
+                        with open(attachment.filename.split('.')[0] + '-temp.json', 'w', encoding='utf8') as temp_json_f:
+                            json.dump(json_data, temp_json_f)
+                        csv_filename = attachment.filename.split('.')[0] + "-effi-" + args[0] + ".csv"
+                        with open(attachment.filename.split('.')[0] + '-temp.json', 'r', encoding='utf8') as temp_json_f:
+                            # await rename_player(temp_json_f, message)
+                            list_runes_over_effi.list_runes(temp_json_f, csv_filename, args[0])
+
+                        await message.reply(file=discord.File(csv_filename))
+                        os.remove(csv_filename)
+                        os.remove(attachment.filename.split('.')[0] + '-temp.json')
+
+                else:
+                    await message.reply("Veuillez passer un argument à la fonction\n"
+                                        "Usage : $efficheck x")
+
+            else:
+                await message.channel.send("Le fichier doit être au format JSON.")
+        else:
+            await message.channel.send("Aucun fichier attaché. Utilisez la commande `$efficheck` avec un fichier JSON.")
+
+
 
 
 print(os.getenv("DISCORD_TOKEN"))
