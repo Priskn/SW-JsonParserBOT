@@ -6,6 +6,7 @@ import os
 import discord
 import json
 
+import effi_graph
 import fill_excel
 
 import json_to_csv_artifacts
@@ -16,7 +17,32 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
-
+rune_set_list = [
+    "Energy",
+    "Guard",
+    "Swift",
+    "Blade",
+    "Rage",
+    "Focus",
+    "Endure",
+    "Fatal",
+    "Despair",
+    "Vampire",
+    "Violent",
+    "Nemesis",
+    "Will",
+    "Shield",
+    "Revenge",
+    "Destroy",
+    "Fight",
+    "Determination",
+    "Enhance",
+    "Accuracy",
+    "Tolerance",
+    "Seal",
+    "Intangible",
+    "Immemorial"
+]
 # async def rename_player(json_f, message):
 #     if message.author.mention != discord.Permissions.administrator:
 #         player_data = json.load(json_f)
@@ -126,10 +152,12 @@ async def on_message(message):
 
                 if args:
                     if args[0].isdigit():
-                        with open(attachment.filename.split('.')[0] + '-temp.json', 'w', encoding='utf8') as temp_json_f:
+                        with open(attachment.filename.split('.')[0] + '-temp.json', 'w',
+                                  encoding='utf8') as temp_json_f:
                             json.dump(json_data, temp_json_f)
                         csv_filename = attachment.filename.split('.')[0] + "-effi-" + args[0] + ".csv"
-                        with open(attachment.filename.split('.')[0] + '-temp.json', 'r', encoding='utf8') as temp_json_f:
+                        with open(attachment.filename.split('.')[0] + '-temp.json', 'r',
+                                  encoding='utf8') as temp_json_f:
                             # await rename_player(temp_json_f, message)
                             list_runes_over_effi.list_runes(temp_json_f, csv_filename, args[0])
 
@@ -147,6 +175,49 @@ async def on_message(message):
             await message.channel.send("Aucun fichier attaché. Utilisez la commande `$efficheck` avec un fichier JSON.")
 
 
+
+    if message.content.startswith('$graph'):
+        if len(message.attachments) > 0:
+            attachment = message.attachments[0]
+            if attachment.filename.endswith('.json'):
+                # Télécharger le fichier
+                file_content = await attachment.read()
+                json_data = json.loads(file_content.decode('utf-8'))
+
+                args = message.content.split(' ')[1:]
+
+
+                if args:
+                    if args[0] in rune_set_list:
+                        with open(attachment.filename.split('.')[0] + '-temp.json', 'w', encoding='utf8') as temp_json_f:
+                            json.dump(json_data, temp_json_f)
+                        image_filename = attachment.filename.split('.')[0] + "-effi-graph-" + args[0] + ".png"
+                        with open(attachment.filename.split('.')[0] + '-temp.json', 'r', encoding='utf8') as temp_json_f:
+                            # await rename_player(temp_json_f, message)
+                            effi_graph.effi_graph_with_set(temp_json_f, image_filename, args[0])
+
+                        await message.reply(file=discord.File(image_filename))
+                        os.remove(image_filename)
+                        os.remove(attachment.filename.split('.')[0] + '-temp.json')
+                    else:
+                        await message.reply("Argument non reconnu veuillez entrer un set de rune")
+
+                else:
+                    with open(attachment.filename.split('.')[0] + '-temp.json', 'w', encoding='utf8') as temp_json_f:
+                        json.dump(json_data, temp_json_f)
+                    image_filename = attachment.filename.split('.')[0] + "-effi-graph.png"
+                    with open(attachment.filename.split('.')[0] + '-temp.json', 'r', encoding='utf8') as temp_json_f:
+                        # await rename_player(temp_json_f, message)
+                        effi_graph.effi_graph_without_set(temp_json_f, image_filename)
+
+                    await message.reply(file=discord.File(image_filename))
+                    os.remove(image_filename)
+                    os.remove(attachment.filename.split('.')[0] + '-temp.json')
+
+            else:
+                await message.reply("Le fichier doit être au format JSON.")
+        else:
+            await message.reply("Aucun fichier attaché. Utilisez la commande `$efficheck` avec un fichier JSON.")
 
 
 print(os.getenv("DISCORD_TOKEN"))
