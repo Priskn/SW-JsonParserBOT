@@ -22,6 +22,12 @@ def list_runes(json_f, csv_filename, effi_asked):
                         writer.writerow(row)
 
             for monster in data["unit_list"]:
+
+                if isinstance(monster["runes"], dict):
+                    runes = list(monster["runes"].values())
+                else:
+                    runes = monster["runes"]
+
                 for rune in monster["runes"]:
                     if rune["upgrade_curr"] >= 12:
                         if effi_rune.calcul_effi_rune(rune) < int(effi_asked) < effi_rune.calcul_effi_max(rune):
