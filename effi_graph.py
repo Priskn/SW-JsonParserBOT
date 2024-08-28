@@ -81,8 +81,8 @@ def effi_graph_without_set(json_f, image_filename):
     print(rune_max_sorted)
 
     plt.figure(figsize=(10, 6))
-    plt.plot(rune_sorted, marker='o', label='Rune effi', color='blue')
-    plt.plot(rune_max_sorted, marker='x', label='Rune effi max', color='red')
+    plt.plot(rune_sorted, marker=',', label='Rune effi', color='blue')
+    plt.plot(rune_max_sorted, marker=',', label='Rune effi max', color='red')
     plt.title('Comparison of Top ' + str(len(rune_sorted)) + ' Rune Values')
     plt.xlabel('Rune Index')
     plt.ylabel('Rune Value')
