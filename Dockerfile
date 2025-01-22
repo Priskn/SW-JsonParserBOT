@@ -1,23 +1,17 @@
-# Utilisez une image Python de base comme point de départ
-FROM python:3.11-slim-buster
 
-RUN apt-get update && apt-get install -y nodejs
+FROM python:3.10-slim
 
-# Définissez le répertoire de travail dans le container
+# Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copiez les fichiers de l'application
-COPY requirements.txt requirements.txt
+# Copier les fichiers nécessaires dans le conteneur
 COPY . .
 
-# Installez les dépendances Python
-RUN pip install -r requirements.txt
+# Installer les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiez le script JavaScript
-#COPY script.js script.js
+# Exposer un port si nécessaire (généralement pas nécessaire pour un bot Discord)
+# EXPOSE 8080
 
-# Exposez le port si nécessaire (ajuster selon votre application)
-#EXPOSE 8080
-
-# Commande pour lancer l'application Python
+# Commande pour exécuter le bot
 CMD ["python", "discordApp.py"]

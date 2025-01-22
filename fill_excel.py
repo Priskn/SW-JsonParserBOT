@@ -5,16 +5,9 @@ import openpyxl
 import shutil
 import check_excel
 import effi_rune
+from jsonvalues import data_xzandro_base
 
-result = subprocess.run(['node', 'mapping.js'], capture_output=True, text=True)
-
-# Vérifier si l'exécution s'est bien passée
-if result.returncode != 0:
-    print("Erreur lors de l'exécution du fichier JavaScript:", result.stderr)
-else:
-    # Charger les données JSON en Python
-    json_data = result.stdout
-    data_xzandro = json.loads(json_data)
+data_xzandro = data_xzandro_base
 
 
 def parse_json(json_f, destination_file, guild_name):
