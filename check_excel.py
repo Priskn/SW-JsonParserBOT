@@ -154,7 +154,7 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
                     if main_stat == "102":
                         sheet['J21'] = sheet['J21'].value + 1
 
-                elif attribute == 4:
+                elif attribute == "4":
                     if main_stat == "101":
                         sheet['K7'] = sheet['K7'].value + 1
                     elif main_stat == "100":
@@ -162,7 +162,7 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
                     if main_stat == "102":
                         sheet['K21'] = sheet['K21'].value + 1
 
-                elif attribute == 5:
+                elif attribute == "5":
                     if main_stat == "101":
                         sheet['L7'] = sheet['L7'].value + 1
                     elif main_stat == "100":
@@ -197,7 +197,7 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
                     if main_stat == "102":
                         sheet['J22'] = sheet['J22'].value + 1
 
-                elif attribute == 4:
+                elif attribute == "4":
                     if main_stat == "101":
                         sheet['K8'] = sheet['K8'].value + 1
                     elif main_stat == "100":
@@ -205,7 +205,7 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
                     if main_stat == "102":
                         sheet['K22'] = sheet['K22'].value + 1
 
-                elif attribute == 5:
+                elif attribute == "5":
                     if main_stat == "101":
                         sheet['L8'] = sheet['L8'].value + 1
                     elif main_stat == "100":
@@ -369,7 +369,7 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
                     if main_stat == "101":
                         sheet['W21'] = sheet['W21'].value + 1
 
-                elif attribute == 4:
+                elif attribute == "4":
                     if main_stat == "100":
                         sheet['X7'] = sheet['X7'].value + 1
                     elif main_stat == "102":
@@ -377,7 +377,7 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
                     if main_stat == "101":
                         sheet['X21'] = sheet['X21'].value + 1
 
-                elif attribute == 5:
+                elif attribute == "5":
                     if main_stat == "100":
                         sheet['Y7'] = sheet['Y7'].value + 1
                     elif main_stat == "102":
@@ -412,7 +412,7 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
                     if main_stat == "101":
                         sheet['W22'] = sheet['W22'].value + 1
 
-                elif attribute == 4:
+                elif attribute == "4":
                     if main_stat == "100":
                         sheet['X8'] = sheet['X8'].value + 1
                     elif main_stat == "102":
@@ -420,7 +420,7 @@ def check_excel(sub_type, value, sheet, art_type, attribute, unit_type, main_sta
                     if main_stat == "101":
                         sheet['X22'] = sheet['X22'].value + 1
 
-                elif attribute == 5:
+                elif attribute == "5":
                     if main_stat == "100":
                         sheet['Y8'] = sheet['Y8'].value + 1
                     elif main_stat == "102":
